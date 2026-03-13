@@ -1,20 +1,3 @@
----
-license: apache-2.0
-task_categories:
-  - visual-question-answering
-  - image-text-to-text
-language:
-  - en
-tags:
-  - multimodal
-  - benchmark
-  - compositional-reasoning
-  - visual-reasoning
-  - mllm
-pretty_name: MM-CondChain
-size_categories:
-  - 1K<n<10K
----
 
 <div align="center">
 <br>
