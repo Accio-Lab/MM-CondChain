@@ -21,7 +21,7 @@ Jianwei Yin<sup>2</sup>
 <sup>2</sup>Zhejiang University
 <sup>3</sup>ZJU-BJ
 
-<font size=3><div align='center'> [[🏠 Project Page](https://Accio-Lab.github.io/MM-CondChain)] [[📖 arXiv Paper](https://arxiv.org/abs/2603.12266)] [[💻 GitHub](https://github.com/Accio-Lab/MM-CondChain)] [[🏆 Leaderboard](https://Accio-Lab.github.io/MM-CondChain#leaderboard)] [[🤗 Dataset](https://huggingface.co/datasets/Accio-Lab/MM-CondChain)] [] </div></font>
+<font size=3><div align='center'> [[🏠 Project Page](https://Accio-Lab.github.io/MM-CondChain)] [[📖 arXiv Paper](https://arxiv.org/abs/2603.12266)] [[💻 GitHub](https://github.com/Accio-Lab/MM-CondChain)] [[🏆 Leaderboard](https://Accio-Lab.github.io/MM-CondChain#leaderboard)] [[🤗 Dataset](https://huggingface.co/datasets/Accio-Lab/MM-CondChain)] </div></font>
 
 </div>
 
