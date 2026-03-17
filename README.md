@@ -21,7 +21,7 @@ Jianwei Yin<sup>2</sup>
 <sup>2</sup>Zhejiang University
 <sup>3</sup>ZJU-BJ
 
-<font size=3><div align='center'> [[🏠 Project Page](https://Accio-Lab.github.io/MM-CondChain)] [[📖 arXiv Paper](https://arxiv.org/abs/xxxx.xxxxx)] [[💻 GitHub](https://github.com/Accio-Lab/MM-CondChain)] [[🏆 Leaderboard](https://Accio-Lab.github.io/MM-CondChain#leaderboard)] </div></font>
+<font size=3><div align='center'> [[🏠 Project Page](https://Accio-Lab.github.io/MM-CondChain)] [[📖 arXiv Paper](https://arxiv.org/abs/2603.12266)] [[💻 GitHub](https://github.com/Accio-Lab/MM-CondChain)] [[🏆 Leaderboard](https://Accio-Lab.github.io/MM-CondChain#leaderboard)] </div></font>
 
 </div>
 
@@ -103,7 +103,89 @@ Each JSONL file contains samples with the following fields:
 - For **Natural** and **Chart** domains, `image` is a single image path (e.g., `images/natural/sa_24810.jpg`).
 - For **GUI** domain, `image` is a trajectory folder path (e.g., `images/gui/GENERAL-9532638838594693992`). To load GUI images, list all PNG files in the folder sorted by filename.
 
+## 🚀 Evaluation
 
+### Installation
+
+```bash
+pip install openai tqdm
+```
+
+### Setup
+
+**OpenAI API:**
+```bash
+export OPENAI_API_KEY="your-api-key"
+```
+
+**Azure OpenAI:**
+```bash
+export AZURE_OPENAI_API_KEY="your-api-key"
+export AZURE_OPENAI_ENDPOINT="https://your-endpoint.openai.azure.com"
+```
+
+**vLLM:** No API key required (or set `--api_key EMPTY`).
+
+### Quick Start
+
+We provide an evaluation script that supports OpenAI API, Azure OpenAI, and vLLM-based open-source models.
+
+**For Proprietary Models (OpenAI API):**
+
+```bash
+python -m eval.eval \
+    --api_type openai \
+    --model gpt-4o \
+    --domain natural \
+    --image_root /path/to/mm-condchain/images
+```
+
+**For Open-Source Models (vLLM):**
+
+We strongly recommend deploying open-source models with [vLLM](https://github.com/vllm-project/vllm). MM-CondChain's compositional instructions are long and complex, which can lead to lengthy generation sequences. vLLM's continuous batching and efficient memory management handle this much better than naive Transformers inference.
+
+To install vLLM, please refer to the [official installation guide](https://docs.vllm.ai/en/latest/getting_started/installation/).
+
+```bash
+# Step 1: Start vLLM server
+vllm serve Qwen/Qwen3-VL-8B-Instruct \
+    --host 0.0.0.0 \
+    --port 8001 \
+    --tensor-parallel-size 2 \
+    --served-model-name qwen3-vl-8b-instruct
+
+# Step 2: Run evaluation
+python -m eval.eval \
+    --api_type vllm \
+    --base_url http://localhost:8001/v1 \
+    --model qwen3-vl-8b-instruct \
+    --domain natural \
+    --image_root /path/to/mm-condchain/images \
+    --stream
+```
+
+### CLI Arguments
+
+| Argument | Description |
+|----------|-------------|
+| `--api_type` | API type: `openai`, `azure`, or `vllm` |
+| `--model` | Model name (e.g., `gpt-4o`, `qwen3-vl-8b-instruct`) |
+| `--domain` | Domain to evaluate: `natural`, `chart`, or `gui` |
+| `--image_root` | Root directory for images |
+| `--data_path` | (Optional) Path to JSONL file. Auto-inferred from `image_root/../data/{domain}.jsonl` if not provided |
+| `--base_url` | vLLM server URL (required for `--api_type vllm`) |
+| `--output` | Output JSON path (default: `./results/{model}_{domain}.json`) |
+| `--workers` | Number of parallel workers (default: 8) |
+| `--resume` | Resume from existing output file |
+| `--stream` | Enable streaming (recommended for vLLM) |
+
+### Metrics
+
+We report the following metrics:
+
+- **True-path Accuracy**: Accuracy on True-path instances (all conditions hold)
+- **False-path Accuracy**: Accuracy on False-path hard negatives (one condition flipped)
+- **Path F1**: Harmonic mean of True-path and False-path accuracy
 
 ## 📈 Experimental Results
 
@@ -124,14 +206,11 @@ Each JSONL file contains samples with the following fields:
 If you find MM-CondChain helpful for your research, please consider citing our work:
 
 ```bibtex
-@article{shen2025mmcondchain,
-    title={MM-CondChain: A Programmatically Verified Benchmark for Visually Grounded Deep Compositional Reasoning},
-    author={Haozhan Shen and Shilin Yan and Hongwei Xue and Shuaiqi Lu and Xiaojun Tang and Guannan Zhang and Tiancheng Zhao and Jianwei Yin},
-    year={2026},
-    eprint={2603.12266},
-    archivePrefix={arXiv},
-    primaryClass={cs.CV},
-    url={https://arxiv.org/abs/2603.12266}, 
+@article{shen2026mm,
+  title={MM-CondChain: A Programmatically Verified Benchmark for Visually Grounded Deep Compositional Reasoning},
+  author={Shen, Haozhan and Yan, Shilin and Xue, Hongwei and Lu, Shuaiqi and Tang, Xiaojun and Zhang, Guannan and Zhao, Tiancheng and Yin, Jianwei},
+  journal={arXiv preprint arXiv:2603.12266},
+  year={2026}
 }
 ```
 
