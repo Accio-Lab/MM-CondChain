@@ -128,10 +128,10 @@ If you find MM-CondChain helpful for your research, please consider citing our w
     title={MM-CondChain: A Programmatically Verified Benchmark for Visually Grounded Deep Compositional Reasoning},
     author={Haozhan Shen and Shilin Yan and Hongwei Xue and Shuaiqi Lu and Xiaojun Tang and Guannan Zhang and Tiancheng Zhao and Jianwei Yin},
     year={2026},
-    eprint={xxxx.xxxxx},
+    eprint={2603.12266},
     archivePrefix={arXiv},
     primaryClass={cs.CV},
-    url={https://arxiv.org/abs/xxxx.xxxxx}, 
+    url={https://arxiv.org/abs/2603.12266}, 
 }
 ```
 
