@@ -1,7 +1,7 @@
 
 <div align="center">
 <br>
-<h1>MM-CondChain: A Programmatically Verified Benchmark for <br> Visually Grounded Deep Compositional Reasoning</h1>
+<h1>MM-CondChain: A Programmatically Verified Benchmark for Visually Grounded Deep Compositional Reasoning</h1>
 
 <a href="https://scholar.google.com/citations?user=Wp5CuPIAAAAJ&hl=en">Haozhan Shen</a><sup>1,2</sup>,
 <a href="https://scholar.google.com/citations?user=2VhjOykAAAAJ&hl=zh-CN&oi=ao">Shilin Yan</a><sup>1†</sup>,
